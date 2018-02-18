@@ -1,9 +1,6 @@
 package com.arturskowronski.naivechain.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
@@ -11,8 +8,7 @@ import static org.apache.commons.codec.digest.DigestUtils.sha256Hex;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@EqualsAndHashCode
+@Data
 public class Block {
 
     protected int index;
@@ -46,7 +42,6 @@ public class Block {
     }
 
     private static HashPair calculateHash(int index, String previousHash, long timestamp, Object blockData, int nounce) {
-
         while (true) {
             nounce++;
             String value = sha256Hex(index + previousHash + timestamp + blockData.hashCode() + nounce);

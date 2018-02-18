@@ -36,22 +36,26 @@ public class P2PServer {
         this.template = template;
     }
 
-    @MessageMapping("/blockchain.mapping")
+    @MessageMapping("/blockchain")
     @SendTo("/topic/public")
-    public void onReceivedBlockchainMessage(@Payload BlockchainMessage message){
-//        this.template.convertAndSend("/chat",  new SimpleDateFormat("HH:mm:ss").format(new Date())+"- "+message);
+    public BlockchainMessage onReceivedBlockchainMessage(@Payload BlockchainMessage message){
+        this.template.convertAndSend("/topic/public", message);
+        return message;
     }
 
     @MessageMapping("/blockchain.queryAll")
     @SendTo("/topic/public")
-    public void onReceivedQueryAllMessage(@Payload QueryAllMessage message){
-//        this.template.convertAndSend("/chat",  new SimpleDateFormat("HH:mm:ss").format(new Date())+"- "+message);
+    public QueryAllMessage onReceivedQueryAllMessage(@Payload QueryAllMessage message){
+        this.template.convertAndSend("/topic/public", message);
+
+        return message;
     }
 
     @MessageMapping("/blockchain.queryLatest")
     @SendTo("/topic/public")
-    public void onReceivedQueryLatestMessage(@Payload QueryLatestMessage message){
-//        this.template.convertAndSend("/chat",  new SimpleDateFormat("HH:mm:ss").format(new Date())+"- "+message);
+    public QueryLatestMessage onReceivedQueryLatestMessage(@Payload QueryLatestMessage message){
+        this.template.convertAndSend("/topic/public", message);
+        return message;
     }
 
 
