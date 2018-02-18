@@ -1,0 +1,40 @@
+plugins {
+	id 'net.ltgt.apt' version '0.10'
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+
+group = 'com.arturskowronski'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter-web:1.5.10.RELEASE")
+	compile('org.springframework.boot:spring-boot-starter-websocket:1.5.10.RELEASE')
+
+	compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
+	compile group: 'io.vavr', name: 'vavr', version: '0.9.0'
+
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compileOnly 'org.projectlombok:lombok:1.16.20'
+	apt "org.projectlombok:lombok:1.16.20"
+
+	// mandatory dependencies for using Spock
+	compile "org.codehaus.groovy:groovy-all:2.4.13"
+	testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
+
+	// optional dependencies for using Spock
+	testCompile "org.hamcrest:hamcrest-core:1.3" // only necessary if Hamcrest matchers are used
+	testRuntime "net.bytebuddy:byte-buddy:1.6.5"   // allows mocking of classes (in addition to interfaces)
+	testRuntime "org.objenesis:objenesis:2.5.1"    // allows mocking of classes without default constructor (together with CGLIB)
+
+}
